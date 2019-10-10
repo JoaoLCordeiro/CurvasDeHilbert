@@ -1,0 +1,137 @@
+A ideia desse documento é registrar o meu processo na tentativa de criar um algoritmo que crie uma curva de hilbert.
+
+Ok, primeiramente eu comecei esboçando as matrizes com as Curvas de Hilbert para tentar começar com alguma coisa.
+
+Com isso, comecei a transformala-as em matrizes que diziam pra onde o traço da curva ia, usando a seguinte forma de descrição:
+
+U - up, pra cima;
+D - down, pra baixo;
+R - right, pra direita;
+L - left, pra esquerda;
+
+Temos assim essas matrizes:
+
+RD  RDRD
+D?  URUD
+    ULDL
+    RUR?
+
+Não fiz pra matriz 8x8 por que parecia muito complicado para um começo e eu pensei em uma forma que parecia ser melhor para
+representar a matriz. Outro motivo de escolher ir pra esse caminho é que minha intuição dizia que ela descreveria melhor uma
+linha passando pelas casas de uma matriz. Usei a seguinte forma de descrição:
+
+D - direita, virou a direção da reta 90° no sentido horário;
+E - esquerda, virou a direção da reta 90° no sentido anti-horário;
+0 - zero, não virou a direção da reta;
+
+Assim, temos as tais matrizes:
+
+DD  DDDD  DDDDDDDD
+??  0EE0  0EE00EE0
+    DEED  DEEDDEED
+    ?EE?  DEE00EED
+	  0E0EE0E0
+	  DDDEEDDD
+	  DDDEEDDD
+	  ?E0EE0E?
+
+Tanto lá nas primeiras matrizes, quanto nessas, o sinal de "?" descreve um elemento que não pode ser definido.
+
+Ao terminar de fazer as tais matrizes, acredito que irei encontrar melhor os padrões nesse tipo de representação.
+Transpassando essa matriz para um grande vetor, seguindo o percurso que a tal linha iria fazer, teremos esse vetor para a
+matriz 8x8:
+
+?DDE0EEDDEE0EDD0DEED0DDEEDD0DEE00EED0DDEEDD0DEED0DDE0EEDDEE0EDD?
+
+Divindo esse grande vetor em algumas partes, podemos analisar as tais coisas:
+
+			<--Simétricos-->
+?DDE0EEDDEE0EDD0DEED0DDEEDD0DEE0|0EED0DDEEDD0DEED0DDE0EEDDEE0EDD?
+
+	  <-Inversos-> 			      <-Inversos->          , com exceções de algumas letras.
+?DDE0EEDDEE0EDD0|DEED0DDEEDD0DEE0||0EED0DDEEDD0DEED|0DDE0EEDDEE0EDD?
+
+  <-Simétricos->    <-Simétricos->      <-Simétricos->     <-Simétricos->  , com exceções de algumas letras.
+?DDE0EED|DEE0EDD0||DEED0DDE|EDD0DEE0|||0EED0DDE|EDD0DEED||0DDE0EED|DEE0EDD?
+
+Podemos continuar a quebra em simétricos e inversos e assim encontramos um certo a padrão.
+Infelizmente, o padrão não funciona para todos os elementos. Se usarmos a matriz de 2x2 de base ( com vetor ?DD?), podemos
+só ter certeza de metade dos elementos das matrizes. 
+Bem, agora eu preciso identificar o comportamento desses elementos (que chamaremos de "elemento quântico", ou "eq" 'êquê', eu
+sei é um nome idiota), que são o primeiro e último elemento de cada "grupo de quatro elementos" (que chamaremos de "quator", 
+algo perto de "quatro" em latim).
+Também escrevi o vetor da matriz 4x4 para poder estudar os eq:
+
+?EED0DDEEDD0DEE?
+
+O primeiro padrão que eu consegui observar tendo de base os vetores da 8x8 e da 4x4 e imaginando como seria os das matrizes de
+16x16,32x32 e assim por diante, foi que os elementos 2 e 3 do vetor são D para matrizes 2^(n)x2^(n) quando n mod 2 = 0, e
+são E para matrizes 2^(n)x2^(n) quando n mod 2 = 1. 
+Esse padrão me trouxe a descoberta de outro padrão: o segundo eq do vetor sempre é o "oposto"(neste momento estou definindo o 
+oposto de E sendo D e vice-versa, o 0 é oposto de si mesmo) dos dois primeiros elementos comuns do vetor, ou seja, 
+quando esses elementos são D, o segundo eq é E, e vice-versa. Outro padrão é que o terceiro eq é sempre 0 e o quarto é sempre o 
+oposto do segundo eq. Essas regras não se aplicam pro vetor 2x2.
+Bem, chegando aqui eu começo a pensar que 0 seja um bom substituto para os elementos não definidos, já que pode-se interpretar
+que não houve alteração na tragetória da linha e também por ser o elemento que aparece ao "simetrizarmos" o primeiro conjunto
+de 8 elementos do vetor 8x8.
+
+
+ Simetrizando->   !
+?DDEOEED | DEE0EDD0
+
+Substituindo:
+
+0DDE|0EED||DEE0|EDD0|||DEED|0DDE||EDD0|DEE0||||0EED|0DDE||EDD0|DEED|||0DDE|0EED||DEE0|EDD0
+
+Com isso, a gente resolve quase todos os nossos problemas atuais. Eu digo atuais por que a gente, por incrível que pareça, não
+consegue enxergar todos os padrões que parecem existir no vetor de uma matriz de 8x8. Por exemplo: ao invertermos os primeiros
+4 quators, o ultimo "0" se torna um "D". Talvez você pense que chegou a hora de definir o oposto do "0" como "D", mas já observamos 
+que o 0 invertido continua sendo 0, como visto nos vetores anteriormente. Não podemos confirmar nada já que o evento só ocorre 
+uma vez no vetor, ou seja, o padrão não pode ser estudado. 
+Com isso, precisamos saltar para a próxima matriz: 16x16.
+Infelizmente, teremos que descrever os 256 elementos que essa matriz possui e criar o vetor, para que assim, podemos continuar
+o estudo desse evento.
+Após um bom tempo, temos o vetor para a matriz de 16x16, divido em quatro linhas com 64 elementos em cada:
+
+0EED|0DDE||EDD0|DEE0|||EDDE|0EED||DEE0|EDD0||||0DDE|0EED||DEE0|EDDE|||0EED|0DDE||EDD0|DEED|X|
+0DDE|0EED||DEE0|EDD0|||DEED|0DDE||EDD0|DEE0||||0EED|0DDE||EDD0|DEED|||0DDE|0EED||DEE0|EDDE|XX|
+EDDE|0EED||DEE0|EDD0|||DEED|0DDE||EDD0|DEE0||||0EED|0DDE||EDD0|DEED|||0DDE|0EED||DEE0|EDD0|X|
+DEED|0DDE||EDD0|DEE0|||EDDE|0EED||DEE0|EDD0||||0DDE|0EED||DEE0|EDDE|||0EED|0DDE||EDD0|DEE0
+
+Analisando esse vetor e o vetor de 8x8, descobri que, para construir um vetor de uma matriz eu posso usar o vetor da matriz anterior
+4 vezes: uma vez invertida, duas vezes iguais e mais uma vez invertida. Assim, eu tenho o vetor inteiro dividido em 4 partes. Mas, ainda
+temos alguns elementos que fogem desse padrão: as extremidades dessas quatro linhas.
+Mas senti que estava perto de descobrir algo grande, então eu construi o vetor da 4x4 e da 2x2, que agora parece brincadeira de criança.
+Então temos:
+
+0DD0  , para 2x2
+
+0EED|0DDE||EDD0|DEE0  , para 4x4
+
+Após anasilar as extremidades, pude perceber um padrão nessas que temos disponível. Para facilitar a visualização,
+coloco as extremidades de cada vetor de matriz abaixo:
+
+0D      00      0D      00
+0E      D0      0E      D0
+E0      0D      E0      0D
+D0      00      D0      00
+4x4     8x8     16x16   32x32  , sendo que os dados sobre a 32x32 foram retirados ao olhar um desenho de um exemplar dessa Curva de Hilbert.
+
+Podemos ver um padrão aqui: quem foge do padrão, as extremidades, tem seu próprio padrão, baseado no "módulo 2" do número de 
+linhas/colunas da matriz analisada, assim como os primeiros eqs que foram encontrados anteriormente.
+A explicação para esse padrão encontrado é que, o que a gente ta vendo é como cada bloco de 1/4 da matriz é ligado ao próximo. Os
+primeiro e último elementos são 0 por que são o fim e o começo da matriz, mas já o resto dos números descrevem a ligação entre os
+1° e 2°, os 2° e 3° e os 3° e 4° blocos da matriz, que é igual entre as matrizes 2^(n)x2^(n) onde n é par e igual entre as matrizes
+2^(n)x2^(n) onde n é ímpar.
+Nas matrizes de n ímpar essas ligações são um L, um U e um L espelhado.
+Nas matrizes de n par essas ligações são um L de ponta cabeça, uma reta e um L de ponta cabeça espelhado.
+
+Depois de encontrar esse padrão, eu acredito que consigo sim fazer um algoritmo que escreva uma matriz de inteiros onde eles
+estão em ordem de onde as curvas de hilbert passam.
+
+A minha ideia é primeiro criar o vetor com os D,E e 0, que vou chamar de vetor angular, já que possui informação sobre a "rotação" da curva.
+Após isso, usar esse vetor para andar pela matriz e deixar de rastro o vetor com o outro padrão, o DRUL.
+No final, teremos uma matriz com o padrão DRUL e, com isso, teremos um caminho bem descrito nela.
+Com o caminho, podemos facilmente substituir os valores por inteiros em ordem crescente, assim tendo a tão esperada Curva
+de Hilbert.
+
