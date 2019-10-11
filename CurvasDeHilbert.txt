@@ -135,3 +135,4 @@ No final, teremos uma matriz com o padrão DRUL e, com isso, teremos um caminho 
 Com o caminho, podemos facilmente substituir os valores por inteiros em ordem crescente, assim tendo a tão esperada Curva
 de Hilbert.
 
+À partir dessa parte, irei apenas acrescentar aqui os meus passos para a implementação do algoritmo. O algoritmo em c estará em outro arquivo.
