@@ -332,7 +332,7 @@ int main ()
 			i=i*2;
 		}
 		/*ImprimeVetor(va,i);*/					/*tire o comentário para imprimir o vetor angular*/
-		printf("\n");
+		/*printf("\n");*/
 		char **matrizDRUL = malloc (n*sizeof(char*));		/*aloca o vetor de ponteiros da DRUL*/
 		int i2;
                 for ( i2=0 ; i2<n ; i2++ )				/*aloca a matriz DRUL*/

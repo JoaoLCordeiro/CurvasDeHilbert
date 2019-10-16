@@ -164,4 +164,29 @@ vetor que está sendo feito atualmente no laço maior. As contas com "n" nos ín
 quando ele é dividido em 4 linhas. Depois desses casos, o vetor[n-1] recebe "0".
 
 Depois disso, o vetor angular está pronto.
+Após concluir todo esse processo, alocamos espaço de n*n para fazermos a matriz de padrão DRUL. Com isso, chamamos a função "VAtoDRUL". Agora
+temos uma matriz de ordem n com uma curva de Hilbert no formato DRUL e agora podemos enfim fazer a matriz com os inteiros indicando o caminho
+da curva. 
+A função "VAtoDRUL" inicia o canto inferior esquerdo da matriz com 'U' caso j seja ímpar ou com 'R' caso j seja par. Passando isso, começamos
+um laço que roda enquanto "i", inicializando em 1, ser maior que n*n. Dentro desse laço, temos alguns ifs externos que testam o elemento do 
+local atual ( variáveis l e c). Dentro desses ifs, temos uma mudança de local (ou em l, ou em c) e ifs internos que testam o vetor[i], assim
+dando o valor para o novo local da matriz DRUL.
 
+Depois disso, a matriz de padrão DRUL está pronta.
+Após isso, liberamos o espaço usado pelo vetor angular já que não será usada mais. Com isso, alocamos espaço para a matriz de inteiros que 
+iremos construir. Agora chamamos a função "DRULtoINT" para construirmos a matriz com o caminho da curva de Hilbert usando inteiros para
+representar.
+A função "DRULtoINT" inicia no canto inferior esquerdo da matriz e segue o caminho descrito pela matriz DRUL com inteiros na matriz INT. Ela
+tem um laço que roda enquanto "i", que inicia em 0, é menor que n*n. Dentro desse laço, ela atribui "i" para o local atual da matriz. Depois
+disso, temos alguns ifs que mudam o local atual (variáveis l e c) na matriz.
+
+Depois disso, a matriz INT está pronta.
+Imprimo a matriz de inteiros.
+Então liberamos o espaço usado pelas matrizes DRUL e INT já que não usaremos mais.
+Chegamos, enfim, ao fim do algoritmo.
+
+Bem, acredito que talvez o vetor angular e a matriz de padrão DRUL também possam ser úteis (talvez até mais úteis). Pensando nisso, deixei uma função
+que imprime o vetor angular e uma que imprime a matriz DRUL para que eles possam ser usados. Obrigado por gastar seu tempo lendo esse documento
+e espero que tenha te "ensinado" algo.
+
+Assinado, João Lucas Cordeiro.
