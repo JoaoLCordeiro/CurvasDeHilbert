@@ -17,8 +17,9 @@ void InicializaVA (char *vetor,int e)
 	vetor[3]='0';
 }
 
-void Inverte (char *vetor,int i,int l)
+void Inverte (char *vetor,int i)
 {
+	int l=i;
 	for ( l=l ; l<(2*i) ; l++)
 	{
 		if (vetor[l-i]=='E')
@@ -39,8 +40,9 @@ void Inverte (char *vetor,int i,int l)
 	}
 }
 
-void Simetriza (char *vetor,int i,int l)
+void Simetriza (char *vetor,int i)
 {
+	int l=i;
 	int k=1;
 	for ( l=l ; l<(2*i) ; l++)
 	{
@@ -133,7 +135,7 @@ int main ()
 {
 	int n;
 	scanf("%d",&n);
-	int i=n/2;
+	float i=n/2;
 	int j=1;
 	while (i>1)					/*aqui a var i serve para testar se n é potência de 2 e j descobre o numero do exponte desa potência*/
 	{
@@ -142,7 +144,7 @@ int main ()
 	}
 	if ( i != 1 )
 	{
-		printf("Erro: Não é uma potência de 2");
+		printf("Erro: Não é uma potência de 2\n");
 		return 1;
 	}
 	else							/*aqui começa a 'execução de verdade'*/
@@ -156,15 +158,14 @@ int main ()
 		int l;
 		while (i<n2)
 		{
-			l=i;					/*essa variável guarda o começo do resto do vetor que será criado no laço*/
 			if (e==1)
 			{
-				Inverte(va,i,l);		/*cria o vetor invertido uma vez*/
+				Inverte(va,i);			/*cria o vetor invertido uma vez*/
 				e=0;
 			}
 			else
 			{
-				Simetriza(va,i,l);		/*cria o vetor simétrico na outra*/
+				Simetriza(va,i);		/*cria o vetor simétrico na outra*/
 				SubstituiExtremos(va,i,j);	/*subtitui os 8 extremos*/
 				e=1;
 			}

@@ -136,3 +136,31 @@ Com o caminho, podemos facilmente substituir os valores por inteiros em ordem cr
 de Hilbert.
 
 À partir dessa parte, irei apenas acrescentar aqui os meus passos para a implementação do algoritmo. O algoritmo em c estará em outro arquivo.
+
+Na função main, primeiro lêmos a ordem da matriz que queremos, guardamos em "n"
+Depois disso, testamos se esse número é uma potência de 2 e, com isso, guardando seu expoente em "j".
+Caso não seja uma potência de 2, o programa imprime um erro e, caso seja, o programa segue em frente.
+Com isso, guardo n*n em n2, para não ter que ficar calculando isso mais vezes.
+Então aloco um espaço de n2 vezes o tamanho de char para usa-lo para armazenar o vetor angular da matriz desejada.
+Após isso, eu uso a função "Inicializa VA" para começar o processo criação do vetor inteiro. Essa função atribui, para o começo do vetor angular
+, 0EE0 caso "j" seja par e 0DD0 caso seja ímpar. 
+Depois, coloco o valor "4" em "i" para simbolizar o tamanho atual do vetor angular e atribuo "1" para "e", uma espécie de booleano disfarçado
+de inteiro. Eu também declaro "l" mas não dou valor algum à ele.
+
+Agora vem um laço que dura até "i" e "n2". Dentro desse laço, se "e" for "1", executamos a funcção "Inverte" e trocamos o "e" para "0", caso "e"
+seja "0", executamos a função "Simetriza", exacutamos a função "SubstituiExtremos" e mudamos "e" para "1". Com isso, o laço fica variando entre
+executar o "se" e o "se não". No final do laço, o "i" é multiplicado por 2 e o laço é testado de novo.
+A função "Inverte" associa à "l" o valor de "i". Com isso, ela faz um laço que roda enquanto "l" for menor que "2*i", colocando em vetor[l] o 
+oposto de vetor[l-i], aumentando 1 no valor de "l" no final.
+A função "Simetriza" associa à "l" o valor de "i" e "1" para "k". Depois disso, temos um laço que roda enquanto "l" for menor que "2*i". Nesse 
+laço, ele pega o elemento de vetor[i-k] e poe em vetor[l], aumentando 1 no valor de "l" e de "k" no final.
+A função "Substitui Extremos" pega "i" e multiplica por 2 para ter o tamanho do novo vetor em "i". Com isso, passamos o valor de "i" para "n" para
+poder usar "i" e não perder seu valor. Depois encontramos o expoente de "i" sendo uma potência de 2 e guardamos em "j2". Mas oq precisamos é do
+expoente do índice da matriz desse vetor, para encontrarmos isso é só dividir por 2, já que a quantia de elementos da matriz é o quadrado do
+índice, então dividimos "j2" por 2. Primeiro, substituímos v[0] com "0". Depois disso, caso "j1" seja par, entramos em um jeito de substituir os 
+extremos dos vetores, caso seja ímpar, entramos em um jeito parecido mas com os valores opostos. Essa parte verifica que tipo de substituição
+estamos fazendo em razão do vetor pedido pelo usuário, as verificações com "j2" começam dentro desses ifs, onde as verificações são em razão do
+vetor que está sendo feito atualmente no laço maior. As contas com "n" nos índices do vetor são feitas para chegar nos extremos do vetor
+quando ele é dividido em 4 linhas. Depois desses casos, o vetor[n-1] recebe "0".
+
+Depois disso, o vetor angular está pronto.
