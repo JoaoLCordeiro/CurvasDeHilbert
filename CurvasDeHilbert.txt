@@ -164,3 +164,4 @@ vetor que está sendo feito atualmente no laço maior. As contas com "n" nos ín
 quando ele é dividido em 4 linhas. Depois desses casos, o vetor[n-1] recebe "0".
 
 Depois disso, o vetor angular está pronto.
+
