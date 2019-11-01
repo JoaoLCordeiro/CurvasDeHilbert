@@ -190,3 +190,5 @@ que imprime o vetor angular e uma que imprime a matriz DRUL para que eles possam
 e espero que tenha te "ensinado" algo.
 
 Assinado, João Lucas Cordeiro.
+
+PS: Temos três arquivos .c e executáveis: um pra criação do vetor angular, um pra criação da matriz DRUL e um pra criação da matriz de inteiros.
